@@ -1,0 +1,38 @@
+<div class="background">
+
+  <app-notification-dialog *ngIf="isPopupVisible" [message]="message" (close)="togglePopup()"></app-notification-dialog>
+
+    <mat-card class="card">
+        <form [formGroup]="heroForm" (ngSubmit)="submitForm()">
+          <mat-card-header class="center">
+            <mat-card-title *ngIf="heroeImg">
+              <img style="height: 40vh" [src]="heroeImg" alt="Imagen del héroe" class="hero-image">
+            </mat-card-title>
+            <mat-card-title *ngIf="!heroeImg">
+              <img style="height: 40vh" src="assets/img/no-portrait.jpg" alt="Imagen del héroe" class="hero-image">
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="center">
+
+            <mat-form-field class="field" appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input style="text-transform: uppercase;" matInput formControlName="name" class="center name-input">
+            </mat-form-field>
+              <mat-form-field class="field" appearance="fill">
+                <mat-label>Editor</mat-label>
+                <input matInput formControlName="publisher" class="center subtitle-input">
+              </mat-form-field>          
+            <mat-form-field class="field" appearance="fill">
+              <mat-label>Ocupación</mat-label>
+              <input matInput formControlName="occupation" class="description-input">
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions class="center">
+            <button mat-icon-button color="primary">
+                <mat-icon>save</mat-icon>
+              </button>          
+            </mat-card-actions>
+        </form>
+      </mat-card>
+      
+  </div>

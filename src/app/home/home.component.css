@@ -1,0 +1,78 @@
+.background{
+  background: linear-gradient(to right, #000000, #550155);
+  height: 100%;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    height: 15%;
+    background-color: rgba(168, 154, 190, 0.555);
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  
+
+  .empty{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  
+    padding-top: 30vh;
+}
+  .div-refresh {
+    display: flex;
+    flex-direction: row;
+  }
+  .card-parent{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: linear-gradient(to right, #000000, #550155);
+
+  }
+  
+
+
+  .card{
+    width: 20%;
+    height:  450px;
+    margin: 30px;
+    padding: 20px;
+    background-color: rgba(168, 154, 190, 0.555);
+    box-shadow: 10px;
+    justify-content: center;
+ 
+  }
+
+  .name::first-letter { 
+    text-transform: uppercase;     
+  } 
+
+    
+  .description{
+  height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Número máximo de líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  }
+  .space-right{
+    margin-right: 1vw;
+  }
+  
+  .center{
+    justify-content: center;
+    text-align: center;
+  }
+  .buttons-edit{
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  

@@ -1,0 +1,68 @@
+<div class="background">
+
+<mat-toolbar   class="toolbar">
+    <span>Superhéroes</span>
+    <span class="spacer"></span>
+    <span class="search-container">
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="fill" class="rounded-search">
+          <mat-label>Buscar superhéroes</mat-label>
+          <input class="rounded-input" matInput formControlName="searchTerm" type="text" placeholder="Batman">
+        </mat-form-field>
+      </form>
+    </span>
+    <button (click)="add()"  mat-icon-button aria-label="Añadir héroe">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <app-notification-dialog *ngIf="isPopupVisible" [message]="message" (close)="togglePopup()"></app-notification-dialog>
+
+  <div *ngIf="isLoading" class="empty">
+  
+    <mat-spinner></mat-spinner> 
+  
+  </div>
+
+  <div *ngIf="!isLoading && showHeroes.length > 0; else noResults"  class="card-parent">
+    <mat-card *ngFor="let hero of showHeroes" class="card">
+      <mat-card-header class="center">
+        <mat-card-title >
+          <img *ngIf="hero.images" [src]="hero.images" alt="Imagen del héroe" class="hero-image">
+          <img *ngIf="!hero.images" src="assets/img/no-portrait.jpg" alt="Imagen del héroe" class="hero-image">
+          <p class="center name">{{ hero.name }}</p>
+        </mat-card-title>
+
+        <mat-card-subtitle class="center">{{ hero.publisher }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="center">
+        <p class="description">
+          {{ hero.occupation }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="center">
+        <button (click)="edit(hero.id)" class="buttons-edit space-right" mat-icon-button matTooltip="Editar">
+          <mat-icon >edit</mat-icon>
+        </button>
+        <button (click)="delete(hero.id)" class="buttons-edit" mat-icon-button matTooltip="Borrar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <ng-template #noResults >
+    <mat-card *ngIf="!isLoading" class="card">
+      <mat-card-header class="center">
+        <mat-card-title>
+          <p class="center name">No hay Resultados</p>
+        </mat-card-title>
+        <mat-card-subtitle class="center">Anyone</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="center">
+        <p class="description">
+          -
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>
