@@ -82,11 +82,15 @@ export class HomeComponent implements OnInit {
   }
   
   delete(id): void {
-    this.heroService.deleteHero(id);
-    this.searchForm.reset();
-    this.message='borado con exito';
-    this.togglePopup();
-    this.getHeroes();
+    if (window.confirm('¿Estás seguro de que quieres borrar?')) {
+      this.heroService.deleteHero(id);
+      this.searchForm.reset();
+      this.message='borado con exito';
+      this.togglePopup();
+      this.getHeroes();
+       console.log('Elemento borrado');
+    } 
+   
     
   }
   togglePopup(): void {

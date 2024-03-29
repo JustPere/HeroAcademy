@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map, of, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { Hero } from './hero.interface';
 
 @Injectable({
@@ -25,24 +25,6 @@ export class HeroServiceService {
     return this.http.get<any>(this.apiUrl+'/all.json').pipe(
       map(heroes => {
        
-        return heroes.map(hero => {
-          return {
-            id: hero.id,
-            name: hero.name,
-            publisher: hero.biography.publisher,
-            occupation: hero.work.occupation,
-            images: hero.images.sm
-          };
-        });
-      })
-    );
-  }
-  }
-
-  fetchAllHeroes(): void {
-    console.log('fetch');
-    this.http.get<any>(this.apiUrl+'/all.json').pipe(
-      map(heroes => {
         return heroes.map(hero => ({
           id: hero.id,
           name: hero.name,
@@ -51,12 +33,37 @@ export class HeroServiceService {
           images: hero.images.sm
         }));
       }),
-      tap(filteredHeroes => {
-        this.heroes = filteredHeroes;
-        console.log(this.heroes);
+      catchError((error: HttpErrorResponse) => {
+          console.error(`Error code ${error.status}, body: ${error.error}`);
+        // Devuelve un observable con un mensaje de error.
+        return throwError('Something went wrong; please try again later.');
       })
-    ).subscribe();
+    );
   }
+}
+
+fetchAllHeroes(): void {
+  console.log('fetch');
+  this.http.get<any>(this.apiUrl + '/all.json').pipe(
+    map(heroes => {
+      return heroes.map(hero => ({
+        id: hero.id,
+        name: hero.name,
+        publisher: hero.biography.publisher,
+        occupation: hero.work.occupation,
+        images: hero.images.sm
+      }));
+    }),
+    tap(filteredHeroes => {
+      this.heroes = filteredHeroes;
+      console.log(this.heroes);
+    }),
+    catchError((error: HttpErrorResponse) => {
+        console.error(`Error code ${error.status}, body: ${error.error}`);
+      return throwError('Something went wrong; please try again later.');
+    })
+  ).subscribe();
+}
 
 
   getHeroesById(id:number, used:boolean): Observable<any> {
